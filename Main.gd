@@ -109,6 +109,8 @@ func add_options():
 		$SelectButton.get_popup().add_item('producer', index)
 		index += 1
 	$SelectButton.get_popup().connect('id_pressed', self, '_on_select_changed')
+
 func _ready():
 	read_cars()
 	add_options()
+	refresh_chart()
