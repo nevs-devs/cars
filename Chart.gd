@@ -9,6 +9,7 @@ var cell_size: float
 var i = 0
 var initial_pos : Vector2
 var labels : Array
+var points : Array
 
 func _ready():
 	initial_pos = position
@@ -22,10 +23,13 @@ func _process(delta):
 			draw_chart(17, 18, 0.05, 4, 0.2, 0.8, 0.05, 2, [[17.2, 0.3]])
 		
 func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y_min: float, y_max: float, y_step: float, y_label_every: int, data: Array):
-	if len(labels) > 0:
-		for l in labels:
-			l.queue_free()
-		labels.clear()
+	for l in labels:
+		l.queue_free()
+	for p in points:
+		p.queue_free()
+	
+	points.clear()
+	labels.clear()
 			
 	var x_diff = x_max - x_min
 	var y_diff = y_max - y_min
@@ -58,6 +62,7 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 		var rel_x = width - (x_max - d[0]) / x_diff * width
 		var rel_y = (y_max - d[1]) / y_diff * height
 		point.position = Vector2(rel_x, rel_y)
+		points.append(point)
 		add_child(point)
 	
 	update()
