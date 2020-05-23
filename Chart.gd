@@ -14,7 +14,7 @@ var points : Array
 func _ready():
 	initial_pos = position
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		if i == 0:
 			draw_chart(0, 100, 10, 2, 23, 49, 1, 2, [[10, 25]])
