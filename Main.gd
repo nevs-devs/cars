@@ -48,6 +48,16 @@ class Car:
 		'; origin: ' + origin +\
 		')'
 
+var LIMITS = {
+	'wastage': [4.0, 30.0, 2.0],
+	'cylinder': [1.0, 10.0, 1.0],
+	'cubic_capacity': [1000.0, 8000.0, 500.0],
+	'ps': [20.0, 260.0, 20.0],
+	'weight': [700.0, 2400.0, 100.0],
+	'acceleration': [6.0, 28.0, 2.0],
+	'year_of_construction': [66.0, 86.0, 1.0]
+}
+
 func car_from_line(line):
 	var properties = line.split('\t')
 	if len(properties) != 10:
@@ -78,14 +88,12 @@ func _ready():
 	var minimum = null
 	var maximum = null
 	for car in cars:
-		var value = car.wastage
+		var value = car.year_of_construction
 		if value == null:
 			continue
 		if minimum == null or minimum > value:
 			minimum = value
 		if maximum == null or maximum < value:
 			maximum = value
-			if not maximum is float:
-				print(car)
 	print(minimum)
 	print(maximum)
