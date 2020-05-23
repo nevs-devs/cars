@@ -52,10 +52,12 @@ func read_cars():
 
 func _on_x_axis_changed(id):
 	x_id = id
+	$XAxisChooser.text = AxisOptions[id]
 	refresh_chart()
 
 func _on_y_axis_changed(id):
 	y_id = id
+	$YAxisChooser.text = AxisOptions[id]
 	refresh_chart()
 
 func refresh_chart():
