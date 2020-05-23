@@ -92,7 +92,7 @@ func refresh_chart():
 		data
 	)
 
-func _on_select_changed(id):
+func _on_select_changed(_id):
 	pass
 
 func add_options():
