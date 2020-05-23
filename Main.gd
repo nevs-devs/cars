@@ -69,8 +69,8 @@ func car_from_line(line):
 
 func read_cars():
 	var file = File.new()
-	if file.open("./dataset.csv", File.READ) != 0:
-		print('Could not open dataset.csv')
+	if file.open("./dataset.tsv", File.READ) != 0:
+		print('Could not open dataset.tsv')
 		return
 	var content = file.get_as_text()
 	var lines = content.split('\n')
