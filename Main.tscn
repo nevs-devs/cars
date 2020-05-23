@@ -8,3 +8,25 @@ script = ExtResource( 1 )
 
 [node name="Chart" parent="." instance=ExtResource( 2 )]
 position = Vector2( 512, 300 )
+
+[node name="XAxisChooser" type="MenuButton" parent="."]
+margin_left = 115.0
+margin_top = 358.0
+margin_right = 247.0
+margin_bottom = 378.0
+text = "X-Achse"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YAxisChooser" type="MenuButton" parent="."]
+margin_left = 115.0
+margin_top = 383.0
+margin_right = 247.0
+margin_bottom = 403.0
+text = "Y-Achse"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
