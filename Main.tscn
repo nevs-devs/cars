@@ -30,3 +30,14 @@ flat = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SelectButton" type="MenuButton" parent="."]
+margin_left = 854.0
+margin_top = 168.0
+margin_right = 958.0
+margin_bottom = 188.0
+text = "Hersteller"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

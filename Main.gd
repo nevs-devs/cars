@@ -1,11 +1,10 @@
 extends Node2D
 
 const AxisOptions = ['wastage', 'cylinder', 'cubic_capacity', 'ps', 'weight', 'acceleration', 'year_of_construction']
+const SelectOptions = ['model', 'producer', 'origin']
 var cars = []
 var x_id = 0
 var y_id = 1
-
-
 
 var LIMITS = {
 	'wastage': [4.0, 30.0, 2.0, 1],
@@ -21,7 +20,8 @@ func car_from_line(line):
 	var properties = line.split('\t')
 	if len(properties) != 10:
 		return null
-	return {
+	
+	var car = {
 		'model': properties[0],
 		'producer': properties[1],
 		'wastage': properties[2],
@@ -33,6 +33,10 @@ func car_from_line(line):
 		'year_of_construction': properties[8],
 		'origin': properties[9],
 	}
+	for key in car:
+		if car[key] == 'NA':
+			car[key] = null
+	return car
 
 func read_cars():
 	var file = File.new()
@@ -65,6 +69,10 @@ func refresh_chart():
 	var x_option = AxisOptions[x_id]
 	var y_option = AxisOptions[y_id]
 	for car in cars:
+		var x = car[x_option]
+		var y = car[y_option]
+		if x == null or y == null:
+			continue
 		data.append([car[x_option], car[y_option]])
 
 	$Chart.draw_chart(
@@ -79,6 +87,9 @@ func refresh_chart():
 		data
 	)
 
+func _on_select_changed(id):
+	pass
+
 func add_options():
 	var index = 0
 	for option in AxisOptions:
@@ -88,6 +99,11 @@ func add_options():
 	$XAxisChooser.get_popup().connect('id_pressed', self, '_on_x_axis_changed')
 	$YAxisChooser.get_popup().connect('id_pressed', self, '_on_y_axis_changed')
 
+	index = 0
+	for option in SelectOptions:
+		$SelectButton.get_popup().add_item('producer', index)
+		index += 1
+	$SelectButton.get_popup().connect('id_pressed', self, '_on_select_changed')
 func _ready():
 	read_cars()
 	add_options()
