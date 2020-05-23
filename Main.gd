@@ -34,7 +34,12 @@ func car_from_line(line):
 		'origin': properties[9],
 	}
 	for key in car:
-		if car[key] == 'NA':
+		if key in AxisOptions:
+			if car[key] == 'NA':
+				car[key] = null
+			else:
+				car[key] = float(car[key])
+		elif car[key] == 'NA':
 			car[key] = null
 	return car
 
