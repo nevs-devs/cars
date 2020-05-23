@@ -1,71 +1,38 @@
 extends Node2D
 
-
-var cars = []
 const AxisOptions = ['wastage', 'cylinder', 'cubic_capacity', 'ps', 'weight', 'acceleration', 'year_of_construction']
+var cars = []
+var x_id = 0
+var y_id = 1
 
-class Car:
-	var model
-	var producer
-	var wastage
-	var cylinder
-	var cubic_capacity
-	var ps
-	var weight
-	var acceleration
-	var year_of_construction
-	var origin
 
-	func _init(model_arg, producer_arg, wastage_arg, cylinder_arg, cubic_capacity_arg, ps_arg, weight_arg, acceleration_arg, year_of_construction_arg, origin_arg):
-		self.model = model_arg
-		self.producer = producer_arg
-		if wastage_arg == 'NA':
-			self.wastage = null
-		else:
-			self.wastage = float(wastage_arg)
-		self.cylinder = int(cylinder_arg)
-		self.cubic_capacity = float(cubic_capacity_arg)
-		if ps_arg == 'NA':
-			self.ps = null
-		else:
-			self.ps = float(ps_arg)
-		self.weight = float(weight_arg)
-		self.acceleration = float(acceleration_arg)
-		self.year_of_construction = int(year_of_construction_arg)
-		self.origin = origin_arg
-
-	func _to_string():
-		return 'Car (' +\
-		'model: ' + model +\
-		'; producer: ' + producer +\
-		'; wastage: ' + str(wastage) +\
-		'; cylinder: ' + str(cylinder) +\
-		'; cubic_capacity: ' + str(cubic_capacity) +\
-		'; ps: ' + str(ps) +\
-		'; weight: ' + str(weight) +\
-		'; acceleration: ' + str(acceleration) +\
-		'; year_of_construction: ' + str(year_of_construction) +\
-		'; origin: ' + origin +\
-		')'
 
 var LIMITS = {
-	'wastage': [4.0, 30.0, 2.0],
-	'cylinder': [1.0, 10.0, 1.0],
-	'cubic_capacity': [1000.0, 8000.0, 500.0],
-	'ps': [20.0, 260.0, 20.0],
-	'weight': [700.0, 2400.0, 100.0],
-	'acceleration': [6.0, 28.0, 2.0],
-	'year_of_construction': [66.0, 86.0, 1.0]
+	'wastage': [4.0, 30.0, 2.0, 1],
+	'cylinder': [1.0, 10.0, 1.0, 1],
+	'cubic_capacity': [1000.0, 8000.0, 500.0, 1],
+	'ps': [20.0, 260.0, 20.0, 1],
+	'weight': [700.0, 2400.0, 100.0, 1],
+	'acceleration': [6.0, 28.0, 2.0, 1],
+	'year_of_construction': [66.0, 86.0, 1.0, 1]
 }
 
 func car_from_line(line):
 	var properties = line.split('\t')
 	if len(properties) != 10:
 		return null
-	return Car.new(
-		properties[0], properties[1], properties[2], properties[3], properties[4],
-		properties[5], properties[6], properties[7], properties[8], properties[9]
-	)
+	return {
+		'model': properties[0],
+		'producer': properties[1],
+		'wastage': properties[2],
+		'cylinder': properties[3],
+		'cubic_capacity': properties[4],
+		'ps': properties[5],
+		'weight': properties[6],
+		'acceleration': properties[7],
+		'year_of_construction': properties[8],
+		'origin': properties[9],
+	}
 
 func read_cars():
 	var file = File.new()
@@ -84,10 +51,33 @@ func read_cars():
 	file.close()
 
 func _on_x_axis_changed(id):
-	print(id)
+	x_id = id
+	$XAxisChooser.text = AxisOptions[id]
+	refresh_chart()
 
 func _on_y_axis_changed(id):
-	print(id)
+	y_id = id
+	$YAxisChooser.text = AxisOptions[id]
+	refresh_chart()
+
+func refresh_chart():
+	var data = []
+	var x_option = AxisOptions[x_id]
+	var y_option = AxisOptions[y_id]
+	for car in cars:
+		data.append([car[x_option], car[y_option]])
+
+	$Chart.draw_chart(
+		LIMITS[x_option][0],
+		LIMITS[x_option][1],
+		LIMITS[x_option][2],
+		LIMITS[x_option][3],
+		LIMITS[y_option][0],
+		LIMITS[y_option][1],
+		LIMITS[y_option][2],
+		LIMITS[y_option][3],
+		data
+	)
 
 func add_options():
 	var index = 0
