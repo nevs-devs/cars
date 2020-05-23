@@ -41,7 +41,7 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 	position = initial_pos - Vector2((cols * cell_size) / 2, (rows * cell_size) / 2)
 	
 	for c in range(cols + 1):
-		if c % 2 == 0:
+		if c % x_label_every == 0:
 			var label = axis_label.instance()
 			label.get_node("Label").text = str(x_min + x_step * c)
 			label.position = Vector2(cell_size * c, cell_size * rows + 20)
@@ -49,7 +49,7 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 			add_child(label)
 		
 	for r in range(rows + 1):
-		if r % 2 == 0:
+		if r % y_label_every == 0:
 			var label = axis_label.instance()
 			label.get_node("Label").text = str(y_min + y_step * (rows - r))
 			label.position = Vector2(-20 , cell_size * r)
