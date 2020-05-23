@@ -2,7 +2,7 @@ extends Node2D
 
 
 var cars = []
-
+const AxisOptions = ['wastage', 'cylinder', 'cubic_capacity', 'ps', 'weight', 'acceleration', 'year_of_construction']
 
 class Car:
 	var model
@@ -83,17 +83,21 @@ func read_cars():
 		index += 1
 	file.close()
 
+func _on_x_axis_changed(id):
+	print(id)
+
+func _on_y_axis_changed(id):
+	print(id)
+
+func add_options():
+	var index = 0
+	for option in AxisOptions:
+		$XAxisChooser.get_popup().add_item(option, index)
+		$YAxisChooser.get_popup().add_item(option, index)
+		index += 1
+	$XAxisChooser.get_popup().connect('id_pressed', self, '_on_x_axis_changed')
+	$YAxisChooser.get_popup().connect('id_pressed', self, '_on_y_axis_changed')
+
 func _ready():
 	read_cars()
-	var minimum = null
-	var maximum = null
-	for car in cars:
-		var value = car.year_of_construction
-		if value == null:
-			continue
-		if minimum == null or minimum > value:
-			minimum = value
-		if maximum == null or maximum < value:
-			maximum = value
-	print(minimum)
-	print(maximum)
+	add_options()
