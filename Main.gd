@@ -103,6 +103,8 @@ func add_options():
 		index += 1
 	$XAxisChooser.get_popup().connect('id_pressed', self, '_on_x_axis_changed')
 	$YAxisChooser.get_popup().connect('id_pressed', self, '_on_y_axis_changed')
+	_on_x_axis_changed(0)
+	_on_y_axis_changed(1)
 
 	index = 0
 	for option in SelectOptions:

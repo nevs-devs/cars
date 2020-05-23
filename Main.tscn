@@ -10,9 +10,9 @@ script = ExtResource( 1 )
 position = Vector2( 512, 300 )
 
 [node name="XAxisChooser" type="MenuButton" parent="."]
-margin_left = 115.0
+margin_left = 75.0
 margin_top = 358.0
-margin_right = 247.0
+margin_right = 207.0
 margin_bottom = 378.0
 text = "X-Achse"
 flat = false
@@ -21,10 +21,10 @@ __meta__ = {
 }
 
 [node name="YAxisChooser" type="MenuButton" parent="."]
-margin_left = 115.0
-margin_top = 383.0
-margin_right = 247.0
-margin_bottom = 403.0
+margin_left = 75.0
+margin_top = 391.0
+margin_right = 207.0
+margin_bottom = 411.0
 text = "Y-Achse"
 flat = false
 __meta__ = {
