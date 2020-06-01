@@ -2,6 +2,7 @@ extends Node2D
 
 const AxisOptions = ['wastage', 'cylinder', 'cubic_capacity', 'ps', 'weight', 'acceleration', 'year_of_construction']
 const SelectOptions = ['model', 'producer', 'origin']
+const check_list_item = preload("res://CheckListItem.tscn")
 var cars = []
 var x_id = 0
 var y_id = 1
@@ -116,3 +117,6 @@ func _ready():
 	read_cars()
 	add_options()
 	refresh_chart()
+	for i in range(20):
+		var item = check_list_item.instance()
+		$ScrollContainer/VBoxContainer.add_child(item)

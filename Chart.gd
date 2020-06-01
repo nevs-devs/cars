@@ -14,14 +14,6 @@ var points : Array
 func _ready():
 	initial_pos = position
 
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		if i == 0:
-			draw_chart(0, 100, 10, 2, 23, 49, 1, 2, [[10, 25]])
-			i+=1
-		else:
-			draw_chart(17, 18, 0.05, 4, 0.2, 0.8, 0.05, 2, [[17.2, 0.3]])
-		
 func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y_min: float, y_max: float, y_step: float, y_label_every: int, data: Array):
 	for l in labels:
 		l.queue_free()
@@ -35,7 +27,7 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 	var y_diff = y_max - y_min
 	cols = x_diff / x_step
 	rows = y_diff / y_step
-	cell_size = GRID_SIZE / max(rows, cols)
+	cell_size = (GRID_SIZE - 40) / max(rows, cols)
 	var width = cols * cell_size
 	var height = rows * cell_size
 	position = initial_pos - Vector2((cols * cell_size) / 2, (rows * cell_size) / 2)
@@ -69,7 +61,12 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 
 func _draw():
 	for c in range(cols + 1):
-		draw_line(Vector2(c * cell_size, 0), Vector2(c * cell_size, rows * cell_size), Color(1, 1, 1, 0.1), 1.0)
+		if c == 0:
+			draw_line(Vector2(c * cell_size, 0), Vector2(c * cell_size, rows * cell_size), Color("010101"), 1.2)
+		else:
+			draw_line(Vector2(c * cell_size, 0), Vector2(c * cell_size, rows * cell_size), Color("40010101"), 1.0)
 	for r in range(rows + 1):
-		draw_line(Vector2(0, r * cell_size), Vector2(cols * cell_size, r * cell_size), Color(1, 1, 1, 0.1), 1.0)
-
+		if r == rows:
+			draw_line(Vector2(0, r * cell_size), Vector2(cols * cell_size, r * cell_size), Color("010101"), 1.2)
+		else:
+			draw_line(Vector2(0, r * cell_size), Vector2(cols * cell_size, r * cell_size), Color("40010101"), 1.0)
