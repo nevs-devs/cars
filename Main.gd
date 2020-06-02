@@ -142,11 +142,12 @@ func refresh_select():
 	$SelectButton.text = SelectOptions[select_id]
 	delete_children($ScrollContainer/VBoxContainer)
 	var values = get_unique_values(SelectOptions[select_id])
-	# values.sort()
+	var values_keys = values.keys()
+	values_keys.sort()
 	var index = 0
 	selection_toggles = []
 	selections = []
-	for value in values:
+	for value in values_keys:
 		selection_toggles.append(true)
 		selections.append(value)
 		var item = check_list_item.instance()
