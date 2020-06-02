@@ -77,7 +77,7 @@ func _on_y_axis_changed(id):
 	refresh_chart()
 
 func refresh_chart():
-	if enable_refresh:
+	if not enable_refresh:
 		return
 	var data = []
 	var x_option = AxisOptions[x_id]
