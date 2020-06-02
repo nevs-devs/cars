@@ -1,8 +1,10 @@
 extends Node2D
 
+const check_list_item = preload("res://CheckListItem.tscn")
 const AxisOptions = ['wastage', 'cylinder', 'cubic_capacity', 'ps', 'weight', 'acceleration', 'year_of_construction']
 const SelectOptions = ['producer', 'origin']
-const check_list_item = preload("res://CheckListItem.tscn")
+
+var SelectionColors = []
 var cars = []
 var x_id = 0
 var y_id = 1
@@ -82,11 +84,12 @@ func refresh_chart():
 		var select_index = selections.find(car[selection_option])
 		if not selection_toggles[select_index]:
 			continue
+		var color = SelectionColors[select_index]
 		var x = car[x_option]
 		var y = car[y_option]
 		if x == null or y == null:
 			continue
-		data.append([car[x_option], car[y_option]])
+		data.append([car[x_option], car[y_option], color])
 
 	$Chart.draw_chart(
 		LIMITS[x_option][0],
@@ -152,6 +155,10 @@ func add_options():
 		index += 1
 
 func _ready():
+	# some random colors
+	for i in range(30):
+		SelectionColors.append(Color(randf(), randf(), randf(), 1.0))
+
 	read_cars()
 	add_options()
 	refresh_select()
