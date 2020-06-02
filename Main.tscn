@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Chart.tscn" type="PackedScene" id=2]
 [ext_resource path="res://theme.tres" type="Theme" id=3]
 [ext_resource path="res://dropdown-small.png" type="Texture" id=4]
+[ext_resource path="res://button_theme.tres" type="Theme" id=5]
 
 [sub_resource type="StreamTexture" id=1]
 
@@ -68,9 +69,9 @@ scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 
 [node name="SelectButton" type="MenuButton" parent="."]
-margin_left = 1600.0
+margin_left = 1599.66
 margin_top = 116.0
-margin_right = 1798.0
+margin_right = 1797.66
 margin_bottom = 140.0
 theme = ExtResource( 3 )
 text = "Hersteller"
@@ -121,7 +122,7 @@ __meta__ = {
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_left = 1600.0
-margin_top = 151.0
+margin_top = 186.0
 margin_right = 1800.0
 margin_bottom = 930.0
 theme = ExtResource( 3 )
@@ -131,3 +132,27 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 custom_constants/separation = 0
+
+[node name="Button" type="Button" parent="."]
+margin_left = 1599.66
+margin_top = 152.0
+margin_right = 1693.66
+margin_bottom = 176.0
+theme = ExtResource( 5 )
+text = "Select All"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 1704.0
+margin_top = 152.0
+margin_right = 1798.0
+margin_bottom = 176.0
+theme = ExtResource( 5 )
+text = "Deselect All"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="select_all"]
+[connection signal="pressed" from="Button2" to="." method="select_none"]
