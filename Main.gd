@@ -119,6 +119,14 @@ static func delete_children(node):
 		node.remove_child(n)
 		n.queue_free()
 
+func select_all():
+	for child in $ScrollContainer/VBoxContainer.get_children():
+		$ScrollContainer/VBoxContainer.get_child(child).set_checked(true)
+
+func select_none():
+	for child in $ScrollContainer/VBoxContainer.get_children():
+		child.set_checked(false)
+
 func refresh_select():
 	$SelectButton.text = SelectOptions[select_id]
 	delete_children($ScrollContainer/VBoxContainer)

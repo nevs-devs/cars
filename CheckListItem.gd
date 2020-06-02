@@ -13,3 +13,6 @@ func init(id_arg, text):
 
 func _on_toggle(pressed):
 	emit_signal("selection_changed", id, pressed)
+
+func set_checked(checked):
+	$CheckBox.pressed = checked
