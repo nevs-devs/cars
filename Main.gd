@@ -120,6 +120,7 @@ static func delete_children(node):
 		n.queue_free()
 
 func refresh_select():
+	$SelectButton.text = SelectOptions[select_id]
 	delete_children($ScrollContainer/VBoxContainer)
 	var values = get_unique_values(SelectOptions[select_id])
 	values.sort()
