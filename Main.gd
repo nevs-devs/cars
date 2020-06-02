@@ -127,7 +127,7 @@ static func delete_children(node):
 func select_all():
 	enable_refresh = false
 	for child in $ScrollContainer/VBoxContainer.get_children():
-		$ScrollContainer/VBoxContainer.get_child(child).set_checked(true)
+		child.set_checked(true)
 	enable_refresh = true
 	refresh_chart()
 
