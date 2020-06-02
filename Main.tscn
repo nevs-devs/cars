@@ -18,11 +18,10 @@ __meta__ = {
 }
 
 [node name="ChartArea" type="ColorRect" parent="."]
-margin_left = 500.0
+margin_left = 300.0
 margin_top = 80.0
-margin_right = 1350.0
+margin_right = 1550.0
 margin_bottom = 930.0
-color = Color( 0.788235, 0.788235, 0.788235, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

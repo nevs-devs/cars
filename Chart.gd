@@ -2,7 +2,7 @@ extends Node2D
 
 const axis_label = preload("res://AxisLabel.tscn")
 const data_point = preload("res://DataPoint.tscn")
-const GRID_SIZE: int = 850
+const GRID_SIZE: Vector2 = Vector2(1250, 850)
 var cols: int = 0
 var rows: int = 0
 var cell_size: float
@@ -27,7 +27,12 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 	var y_diff = y_max - y_min
 	cols = x_diff / x_step
 	rows = y_diff / y_step
-	cell_size = (GRID_SIZE - 40) / max(rows, cols)
+	
+	if (GRID_SIZE.x - 40 / rows) < (GRID_SIZE.y - 40 / cols):
+		cell_size = (GRID_SIZE.x - 40) / cols
+	else:
+		cell_size = (GRID_SIZE.y - 40) / rows
+		
 	var width = cols * cell_size
 	var height = rows * cell_size
 	position = initial_pos - Vector2((cols * cell_size) / 2, (rows * cell_size) / 2)
