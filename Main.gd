@@ -1,11 +1,12 @@
 extends Node2D
 
 const AxisOptions = ['wastage', 'cylinder', 'cubic_capacity', 'ps', 'weight', 'acceleration', 'year_of_construction']
-const SelectOptions = ['model', 'producer', 'origin']
+const SelectOptions = ['producer', 'origin']
 const check_list_item = preload("res://CheckListItem.tscn")
 var cars = []
 var x_id = 0
 var y_id = 1
+var select_id = 0
 
 var LIMITS = {
 	'wastage': [4.0, 30.0, 2.0, 1],
@@ -93,8 +94,31 @@ func refresh_chart():
 		data
 	)
 
-func _on_select_changed(_id):
-	pass
+func _on_select_changed(id):
+	select_id = id
+	refresh_select()
+
+func get_unique_values(key):
+	var values = []
+	for car in cars:
+		if not car[key] in values:
+			values.append(car[key])
+	return values
+
+static func delete_children(node):
+	for n in node.get_children():
+		node.remove_child(n)
+		n.queue_free()
+
+func refresh_select():
+	delete_children($ScrollContainer/VBoxContainer)
+	var values = get_unique_values(SelectOptions[select_id])
+	values.sort()
+	for value in values:
+		var item = check_list_item.instance()
+		print(value)
+		# TODO: insert text
+		$ScrollContainer/VBoxContainer.add_child(item)
 
 func add_options():
 	var index = 0
@@ -109,14 +133,12 @@ func add_options():
 
 	index = 0
 	for option in SelectOptions:
-		$SelectButton.get_popup().add_item('producer', index)
+		$SelectButton.get_popup().add_item(option, index)
 		index += 1
-	$SelectButton.get_popup().connect('id_pressed', self, '_on_select_changed')
 
 func _ready():
 	read_cars()
 	add_options()
 	refresh_chart()
-	for i in range(20):
-		var item = check_list_item.instance()
-		$ScrollContainer/VBoxContainer.add_child(item)
+	refresh_select()
+	$SelectButton.get_popup().connect('id_pressed', self, '_on_select_changed')
