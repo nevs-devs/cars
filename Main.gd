@@ -11,6 +11,7 @@ var y_id = 1
 var select_id = 0
 var selection_toggles = []
 var selections = []
+var enable_refresh = true
 
 var LIMITS = {
 	'wastage': [4.0, 30.0, 2.0, 1],
@@ -76,6 +77,8 @@ func _on_y_axis_changed(id):
 	refresh_chart()
 
 func refresh_chart():
+	if enable_refresh:
+		return
 	var data = []
 	var x_option = AxisOptions[x_id]
 	var y_option = AxisOptions[y_id]
@@ -120,12 +123,18 @@ static func delete_children(node):
 		n.queue_free()
 
 func select_all():
+	enable_refresh = false
 	for child in $ScrollContainer/VBoxContainer.get_children():
 		$ScrollContainer/VBoxContainer.get_child(child).set_checked(true)
+	enable_refresh = true
+	refresh_chart()
 
 func select_none():
+	enable_refresh = false
 	for child in $ScrollContainer/VBoxContainer.get_children():
 		child.set_checked(false)
+	enable_refresh = true
+	refresh_chart()
 
 func refresh_select():
 	$SelectButton.text = SelectOptions[select_id]
