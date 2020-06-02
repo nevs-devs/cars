@@ -111,10 +111,12 @@ func _on_select_changed(id):
 	refresh_select()
 
 func get_unique_values(key):
-	var values = []
+	var values = {}
 	for car in cars:
-		if not car[key] in values:
-			values.append(car[key])
+		if car[key] in values:
+			values[car[key]] += 1
+		else:
+			values[car[key]] = 1
 	return values
 
 static func delete_children(node):
@@ -140,7 +142,7 @@ func refresh_select():
 	$SelectButton.text = SelectOptions[select_id]
 	delete_children($ScrollContainer/VBoxContainer)
 	var values = get_unique_values(SelectOptions[select_id])
-	values.sort()
+	# values.sort()
 	var index = 0
 	selection_toggles = []
 	selections = []
@@ -148,7 +150,7 @@ func refresh_select():
 		selection_toggles.append(true)
 		selections.append(value)
 		var item = check_list_item.instance()
-		item.init(index, value)
+		item.init(index, value, SelectionColors[index], values[value])
 		$ScrollContainer/VBoxContainer.add_child(item)
 		index += 1
 		item.connect("selection_changed", self, "_on_selection_changed")
