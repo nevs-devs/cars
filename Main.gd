@@ -7,6 +7,8 @@ var cars = []
 var x_id = 0
 var y_id = 1
 var select_id = 0
+var selection_toggles = []
+var selections = []
 
 var LIMITS = {
 	'wastage': [4.0, 30.0, 2.0, 1],
@@ -76,6 +78,10 @@ func refresh_chart():
 	var x_option = AxisOptions[x_id]
 	var y_option = AxisOptions[y_id]
 	for car in cars:
+		var selection_option = SelectOptions[select_id]
+		var select_index = selections.find(car[selection_option])
+		if not selection_toggles[select_index]:
+			continue
 		var x = car[x_option]
 		var y = car[y_option]
 		if x == null or y == null:
@@ -114,11 +120,22 @@ func refresh_select():
 	delete_children($ScrollContainer/VBoxContainer)
 	var values = get_unique_values(SelectOptions[select_id])
 	values.sort()
+	var index = 0
+	selection_toggles = []
+	selections = []
 	for value in values:
+		selection_toggles.append(true)
+		selections.append(value)
 		var item = check_list_item.instance()
-		print(value)
-		# TODO: insert text
+		item.init(index, value)
 		$ScrollContainer/VBoxContainer.add_child(item)
+		index += 1
+		item.connect("selection_changed", self, "_on_selection_changed")
+	refresh_chart()
+
+func _on_selection_changed(id, pressed):
+	selection_toggles[id] = pressed
+	refresh_chart()
 
 func add_options():
 	var index = 0
@@ -128,8 +145,6 @@ func add_options():
 		index += 1
 	$XAxisChooser.get_popup().connect('id_pressed', self, '_on_x_axis_changed')
 	$YAxisChooser.get_popup().connect('id_pressed', self, '_on_y_axis_changed')
-	_on_x_axis_changed(0)
-	_on_y_axis_changed(1)
 
 	index = 0
 	for option in SelectOptions:
@@ -139,6 +154,6 @@ func add_options():
 func _ready():
 	read_cars()
 	add_options()
-	refresh_chart()
 	refresh_select()
+	refresh_chart()
 	$SelectButton.get_popup().connect('id_pressed', self, '_on_select_changed')
