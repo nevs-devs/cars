@@ -2,7 +2,7 @@ extends Node2D
 
 const axis_label = preload("res://AxisLabel.tscn")
 const data_point = preload("res://DataPoint.tscn")
-const GRID_SIZE: int = 500
+const GRID_SIZE: int = 850
 var cols: int = 0
 var rows: int = 0
 var cell_size: float
