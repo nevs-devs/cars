@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Open_Sans/OpenSans-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://CheckListItem.gd" type="Script" id=2]
@@ -13,8 +13,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -824.0
 margin_bottom = -560.0
-script = ExtResource( 2 )
 rect_min_size = Vector2( 200, 40 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -27,7 +27,7 @@ margin_top = -20.0
 margin_right = 89.0
 margin_bottom = 20.0
 custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.384314, 0.431373, 0.521569, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Test123"
 valign = 1
 __meta__ = {
@@ -40,5 +40,8 @@ anchor_bottom = 0.5
 margin_top = -20.0
 margin_right = 200.0
 margin_bottom = 20.0
-pressed = true
 theme = SubResource( 2 )
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
