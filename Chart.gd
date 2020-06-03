@@ -28,10 +28,8 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 	cols = x_diff / x_step
 	rows = y_diff / y_step
 	
-	if (GRID_SIZE.x - 40 / rows) < (GRID_SIZE.y - 40 / cols):
-		cell_size = (GRID_SIZE.x - 40) / cols
-	else:
-		cell_size = (GRID_SIZE.y - 40) / rows
+	cell_size = min((GRID_SIZE.x - 40) / cols, (GRID_SIZE.y - 40) / rows)
+	
 		
 	var width = cols * cell_size
 	var height = rows * cell_size
