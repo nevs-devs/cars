@@ -1,0 +1,119 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://tooltip_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Open_Sans/OpenSans-SemiBold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Open_Sans/OpenSans-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://CarPreview.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.341176, 0.392157, 0.490196, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.341176, 0.392157, 0.490196, 1 )
+shadow_size = 2
+shadow_offset = Vector2( 2, 2 )
+
+[node name="CarPreview" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = -130.0
+margin_top = -70.0
+margin_right = 130.0
+margin_bottom = 70.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CarName" type="Label" parent="Panel"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 250.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 1 )
+text = "Chevrolet Vega 2300"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label1" type="Label" parent="Panel"]
+margin_left = 10.0
+margin_top = 65.0
+margin_right = 135.0
+margin_bottom = 90.0
+custom_fonts/font = SubResource( 2 )
+text = "Gewicht:"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Val1" type="Label" parent="Panel"]
+margin_left = 155.0
+margin_top = 65.0
+margin_right = 245.0
+margin_bottom = 95.0
+custom_fonts/font = SubResource( 2 )
+text = "1500 kg"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Panel"]
+margin_left = 10.0
+margin_top = 95.0
+margin_right = 135.0
+margin_bottom = 120.0
+custom_fonts/font = SubResource( 2 )
+text = "Zylinder:"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Val2" type="Label" parent="Panel"]
+margin_left = 155.0
+margin_top = 95.0
+margin_right = 245.0
+margin_bottom = 125.0
+custom_fonts/font = SubResource( 2 )
+text = "4"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopTip" type="Panel" parent="."]
+margin_left = -15.0
+margin_top = -85.0
+margin_right = 15.0
+margin_bottom = -55.0
+rect_rotation = 45.0
+rect_pivot_offset = Vector2( 15, 15 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomTip" type="Panel" parent="."]
+margin_left = -15.0
+margin_top = 55.0
+margin_right = 15.0
+margin_bottom = 85.0
+rect_rotation = 45.0
+rect_pivot_offset = Vector2( 15, 15 )
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
