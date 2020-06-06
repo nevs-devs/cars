@@ -96,7 +96,7 @@ func refresh_chart():
 		var y = car[y_option]
 		if x == null or y == null:
 			continue
-		data.append([car[x_option], car[y_option], color, car])
+		data.append([x, y, color, car])
 		current_cars.append(car)
 
 	current_data_points = $Chart.draw_chart(
@@ -175,7 +175,6 @@ func _on_selection_entered(id):
 		current_data_point.set_hovered(current_car[selection_name] == current_selection)
 
 func _on_selection_exited(_id):
-	print('on selection exited')
 	for current_data_point in current_data_points:
 		current_data_point.set_hovered(true)
 
