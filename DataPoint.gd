@@ -27,8 +27,9 @@ func init(car_arg, color_arg, x_value_arg, y_value_arg, x_option_arg, y_option_a
 	y_metric = y_metric_arg
 	$Sprite.modulate = color
 
-func _on_Area2D_input_event(viewport, event, shape_idx):
+func _on_Area2D_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
+		car_description.set_data(car)
 		car_description.visible = true
 		if global_position.y > 540:
 			car_description.position = global_position - Vector2(0, 125)
