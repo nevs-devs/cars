@@ -3,6 +3,11 @@ extends Node2D
 onready var car_preview = get_node("/root/Main/CarPreview")
 onready var car_description = get_node("/root/Main/CarDescription")
 
+var car
+
+func init(car_arg):
+	car = car_arg
+
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		car_description.visible = true

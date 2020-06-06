@@ -92,7 +92,7 @@ func refresh_chart():
 		var y = car[y_option]
 		if x == null or y == null:
 			continue
-		data.append([car[x_option], car[y_option], color])
+		data.append([car[x_option], car[y_option], color, car])
 
 	$Chart.draw_chart(
 		LIMITS[x_option][0],

@@ -54,6 +54,7 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 	
 	for d in data:
 		var point = data_point.instance()
+		point.init(data[3])
 		point.get_node("Sprite").modulate = d[2]
 		var rel_x = width - (x_max - d[0]) / x_diff * width
 		var rel_y = (y_max - d[1]) / y_diff * height
