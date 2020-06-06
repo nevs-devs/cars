@@ -16,13 +16,13 @@ var current_data_points = []
 var current_cars = []
 
 var LIMITS = {
-	'wastage': [4.0, 30.0, 2.0, 1],
-	'cylinder': [1.0, 10.0, 1.0, 1],
-	'cubic_capacity': [1000.0, 8000.0, 500.0, 2],
-	'ps': [20.0, 260.0, 20.0, 1],
-	'weight': [700.0, 2400.0, 100.0, 2],
-	'acceleration': [6.0, 28.0, 2.0, 1],
-	'year_of_construction': [66.0, 86.0, 1.0, 1]
+	'wastage': [4.0, 30.0, 2.0, 1, 'Miles/Galloon'],
+	'cylinder': [1.0, 10.0, 1.0, 1, 'Cylinder'],
+	'cubic_capacity': [1000.0, 8000.0, 500.0, 2, 'cubic inches'],
+	'ps': [20.0, 260.0, 20.0, 1, 'PS'],
+	'weight': [700.0, 2400.0, 100.0, 2, 'lbs'],
+	'acceleration': [6.0, 28.0, 2.0, 1, 'seconds'],
+	'year_of_construction': [66.0, 86.0, 1.0, 1, '']
 }
 
 func car_from_line(line):
@@ -108,7 +108,11 @@ func refresh_chart():
 		LIMITS[y_option][1],
 		LIMITS[y_option][2],
 		LIMITS[y_option][3],
-		data
+		data,
+		x_option,
+		y_option,
+		LIMITS[x_option][4],
+		LIMITS[y_option][4]
 	)
 
 func _on_select_changed(id):
@@ -195,6 +199,10 @@ func add_options():
 	for option in SelectOptions:
 		$SelectButton.get_popup().add_item(option, index)
 		index += 1
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		$CarDescription.visible = false
 
 func _ready():
 	# some random colors

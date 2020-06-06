@@ -14,7 +14,7 @@ var points : Array
 func _ready():
 	initial_pos = position
 
-func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y_min: float, y_max: float, y_step: float, y_label_every: int, data: Array):
+func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y_min: float, y_max: float, y_step: float, y_label_every: int, data: Array, x_option, y_option, x_metric, y_metric):
 	for l in labels:
 		l.queue_free()
 	for p in points:
@@ -55,7 +55,7 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 	
 	for d in data:
 		var point = data_point.instance()
-		point.init(data[3], d[2])
+		point.init(d[3], d[2], d[0], d[1], x_option, y_option, x_metric, y_metric)
 		# point.get_node("Sprite").modulate = d[2]
 		var rel_x = width - (x_max - d[0]) / x_diff * width
 		var rel_y = (y_max - d[1]) / y_diff * height
