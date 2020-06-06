@@ -42,7 +42,6 @@ margin_bottom = 60.0
 custom_fonts/font = SubResource( 1 )
 text = "Chevrolet Vega 2300"
 align = 1
-autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

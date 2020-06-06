@@ -38,7 +38,7 @@ func _on_Area2D_input_event(_viewport, event, _shape_idx):
 
 
 func _on_Area2D_mouse_entered():
-	car_preview.set_data(x_option, x_value, y_option, y_value, x_metric, y_metric, car['model'])
+	car_preview.set_data(x_option, x_value, y_option, y_value, x_metric, y_metric, car['model'], car['producer'])
 	car_preview.visible = true
 	if global_position.y > 540:
 		car_preview.position = global_position - Vector2(0, 90)

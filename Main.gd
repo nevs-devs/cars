@@ -2,6 +2,15 @@ extends Node2D
 
 const check_list_item = preload("res://CheckListItem.tscn")
 const AxisOptions = ['wastage', 'cylinder', 'cubic_capacity', 'ps', 'weight', 'acceleration', 'year_of_construction']
+const AxisOptionCoefficients = {
+	'wastage': 1.609/3.785,
+	'cylinder': 1,
+	'cubic_capacity': 16.387,
+	'ps': 1,
+	'weight': 0.4536,
+	'acceleration': 1,
+	'year_of_construction': 1
+}
 const SelectOptions = ['producer', 'origin']
 
 var SelectionColors = []
@@ -16,12 +25,12 @@ var current_data_points = []
 var current_cars = []
 
 var LIMITS = {
-	'wastage': [4.0, 30.0, 2.0, 1, 'Miles/Galloon'],
-	'cylinder': [1.0, 10.0, 1.0, 1, 'Cylinder'],
-	'cubic_capacity': [1000.0, 8000.0, 500.0, 2, 'cubic inches'],
-	'ps': [20.0, 260.0, 20.0, 1, 'PS'],
-	'weight': [700.0, 2400.0, 100.0, 2, 'lbs'],
-	'acceleration': [6.0, 28.0, 2.0, 1, 'seconds'],
+	'wastage': [0.0, 15.0, 1.0, 1, 'km/l'],
+	'cylinder': [1.0, 10.0, 1.0, 1, 'cylinder'],
+	'cubic_capacity': [14000.0, 130000.0, 10000.0, 2, 'ccm'],
+	'ps': [20.0, 260.0, 20.0, 1, 'ps'],
+	'weight': [200.0, 1200.0, 100.0, 2, 'kg'],
+	'acceleration': [4.0, 28.0, 2.0, 1, 'seconds'],
 	'year_of_construction': [66.0, 86.0, 1.0, 1, '']
 }
 
@@ -47,7 +56,7 @@ func car_from_line(line):
 			if car[key] == 'NA':
 				car[key] = null
 			else:
-				car[key] = float(car[key])
+				car[key] = float(car[key]) * AxisOptionCoefficients[key]
 		elif car[key] == 'NA':
 			car[key] = null
 	return car
@@ -67,6 +76,17 @@ func read_cars():
 				cars.append(car)
 		index += 1
 	file.close()
+	for key in AxisOptions:
+		var max_value = cars[0][key]
+		var min_value = cars[0][key]
+		for car in cars:
+			var value = car[key]
+			if value == null:
+				continue
+			max_value = max(max_value, value)
+			min_value = min(min_value, value)
+		print('min ', key, ': ', min_value)
+		print('max ', key, ': ', max_value)
 
 func _on_x_axis_changed(id):
 	x_id = id
