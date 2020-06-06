@@ -12,6 +12,8 @@ var select_id = 0
 var selection_toggles = []
 var selections = []
 var enable_refresh = true
+var current_data_points = []
+var current_cars = []
 
 var LIMITS = {
 	'wastage': [4.0, 30.0, 2.0, 1],
@@ -82,6 +84,8 @@ func refresh_chart():
 	var data = []
 	var x_option = AxisOptions[x_id]
 	var y_option = AxisOptions[y_id]
+	current_cars.clear()
+	current_cars.clear()
 	for car in cars:
 		var selection_option = SelectOptions[select_id]
 		var select_index = selections.find(car[selection_option])
@@ -93,8 +97,9 @@ func refresh_chart():
 		if x == null or y == null:
 			continue
 		data.append([car[x_option], car[y_option], color, car])
+		current_cars.append(car)
 
-	$Chart.draw_chart(
+	current_data_points = $Chart.draw_chart(
 		LIMITS[x_option][0],
 		LIMITS[x_option][1],
 		LIMITS[x_option][2],
@@ -155,7 +160,24 @@ func refresh_select():
 		$ScrollContainer/VBoxContainer.add_child(item)
 		index += 1
 		item.connect("selection_changed", self, "_on_selection_changed")
+		item.connect("selection_entered", self, "_on_selection_entered")
+		item.connect("selection_exited", self, "_on_selection_exited")
 	refresh_chart()
+
+func _on_selection_entered(id):
+	var selection_name = SelectOptions[select_id]
+	var current_selection = selections[id]
+
+	for index in range(len(current_cars)):
+		var current_car = current_cars[index]
+		var current_data_point = current_data_points[index]
+
+		current_data_point.set_hovered(current_car[selection_name] == current_selection)
+
+func _on_selection_exited(_id):
+	print('on selection exited')
+	for current_data_point in current_data_points:
+		current_data_point.set_hovered(true)
 
 func _on_selection_changed(id, pressed):
 	selection_toggles[id] = pressed
@@ -177,6 +199,10 @@ func add_options():
 
 func _ready():
 	# some random colors
+	SelectionColors.append(Color.red)
+	SelectionColors.append(Color.blue)
+	SelectionColors.append(Color.green)
+
 	for i in range(30):
 		SelectionColors.append(Color(randf(), randf(), randf(), 1.0))
 

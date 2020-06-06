@@ -51,6 +51,7 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 			labels.append(label)
 			add_child(label)
 	
+	var data_points = []
 	
 	for d in data:
 		var point = data_point.instance()
@@ -61,8 +62,11 @@ func draw_chart(x_min: float, x_max: float, x_step: float, x_label_every: int, y
 		point.position = Vector2(rel_x, rel_y)
 		points.append(point)
 		add_child(point)
+		data_points.append(point)
 	
 	update()
+
+	return data_points
 
 func _draw():
 	for c in range(cols + 1):
