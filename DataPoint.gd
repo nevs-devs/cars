@@ -3,13 +3,17 @@ extends Node2D
 onready var car_preview = get_node("/root/Main/CarPreview")
 onready var car_description = get_node("/root/Main/CarDescription")
 const MODULATE_SPEED = 4.0
-const MIN_MODULATE = 0.08
+const MIN_MODULATE = 0.2
 
 var car
+var color: Color
+var white_fade = 0.0
 var hovered = true
 
-func init(car_arg):
+func init(car_arg, color_arg):
 	car = car_arg
+	color = color_arg
+	$Sprite.modulate = color
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
@@ -32,9 +36,12 @@ func _on_Area2D_mouse_exited():
 
 func _process(delta):
 	if hovered:
-		modulate.a = min(1.0, modulate.a + (delta*MODULATE_SPEED))
+		white_fade = max(0.0, white_fade - (delta*MODULATE_SPEED))
+		$Sprite.z_index = 2
 	else:
-		modulate.a = max(MIN_MODULATE, modulate.a - (delta*MODULATE_SPEED))
+		white_fade = min(1.0-MIN_MODULATE, white_fade + (delta*MODULATE_SPEED))
+		$Sprite.z_index = 1
+	$Sprite.modulate = color.linear_interpolate(Color.white, white_fade)
 
 func set_hovered(hov):
 	hovered = hov

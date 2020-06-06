@@ -203,7 +203,7 @@ func _ready():
 	SelectionColors.append(Color.green)
 
 	for i in range(30):
-		SelectionColors.append(Color(randf(), randf(), randf(), 1.0))
+		SelectionColors.append(Color(randf()*0.8, randf()*0.8, randf()*0.8, 1.0))
 
 	read_cars()
 	add_options()
