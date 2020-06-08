@@ -10,12 +10,20 @@ func str_and_round(f, digits=1):
 	return s
 
 func set_data(car):
-	$Panel/CarName.text = car['model'] + '  (' + car['producer'] + ')'
+	$Panel/CarName.text = car['producer'].capitalize() + ' ' + car['model'].capitalize()
 	$Panel/WeightVal.text = str_and_round(car['weight']) + ' kg'
 	$Panel/ConsumptionVal.text = str_and_round(car['wastage']) + ' km/l'
-	$Panel/HorsePowerVal.text = str_and_round(car['ps']) + ' ps'
-	$Panel/YearOfConstructionVal.text = str(car['year_of_construction'])
-	$Panel/CylinderVal.text = str(car['cylinder']) + ' cylinder'
+	$Panel/HorsePowerVal.text = str_and_round(car['ps'])
+	$Panel/YearOfConstructionVal.text = str(1900 + car['year_of_construction'])
+	$Panel/CylinderVal.text = str(car['cylinder'])
 	$Panel/CubicCapacityVal.text = str_and_round(car['cubic_capacity']) + ' ccm'
-	$Panel/AccelerationVal.text = str_and_round(car['acceleration']) + ' seconds'
+	$Panel/AccelerationVal.text = str_and_round(car['acceleration']) + ' s'
 	$Panel/OriginVal.text = car['origin']
+
+func show_bottom_pin() -> void:
+	$TopTip.visible = false
+	$BottomTip.visible = true
+	
+func show_top_pin() -> void:
+	$TopTip.visible = true
+	$BottomTip.visible = false

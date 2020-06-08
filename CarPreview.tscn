@@ -37,11 +37,12 @@ __meta__ = {
 [node name="CarName" type="Label" parent="Panel"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 250.0
-margin_bottom = 60.0
+margin_right = 350.0
+margin_bottom = 45.0
 custom_fonts/font = SubResource( 1 )
 text = "Chevrolet Vega 2300"
 align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -31,20 +31,26 @@ func _on_Area2D_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		car_description.set_data(car)
 		car_description.visible = true
+		car_preview.visible = false
 		if global_position.y > 540:
 			car_description.position = global_position - Vector2(0, 125)
+			car_description.show_bottom_pin()
 		else:
 			car_description.position = global_position + Vector2(0, 125)
+			car_description.show_top_pin()
 
 
 func _on_Area2D_mouse_entered():
+	if car_description.visible: return
+	
 	car_preview.set_data(x_option, x_value, y_option, y_value, x_metric, y_metric, car['model'], car['producer'])
 	car_preview.visible = true
 	if global_position.y > 540:
-		car_preview.position = global_position - Vector2(0, 90)
+		car_preview.position = global_position - Vector2(0, 100)
+		car_preview.show_bottom_pin()
 	else:
-		car_preview.position = global_position + Vector2(0, 90)
-
+		car_preview.position = global_position + Vector2(0, 100)
+		car_preview.show_top_pin()
 func _on_Area2D_mouse_exited():
 	car_preview.visible = false
 

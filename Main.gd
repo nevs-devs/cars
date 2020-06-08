@@ -26,11 +26,11 @@ var current_cars = []
 
 var LIMITS = {
 	'wastage': [0.0, 15.0, 1.0, 1, 'km/l'],
-	'cylinder': [1.0, 10.0, 1.0, 1, 'cylinder'],
+	'cylinder': [1.0, 10.0, 1.0, 1, ''],
 	'cubic_capacity': [14000.0, 130000.0, 10000.0, 2, 'ccm'],
-	'ps': [20.0, 260.0, 20.0, 1, 'ps'],
+	'ps': [20.0, 260.0, 20.0, 1, ''],
 	'weight': [200.0, 1200.0, 100.0, 2, 'kg'],
-	'acceleration': [4.0, 28.0, 2.0, 1, 'seconds'],
+	'acceleration': [4.0, 28.0, 2.0, 1, 's'],
 	'year_of_construction': [66.0, 86.0, 1.0, 1, '']
 }
 
@@ -90,12 +90,12 @@ func read_cars():
 
 func _on_x_axis_changed(id):
 	x_id = id
-	$XAxisChooser.text = AxisOptions[id]
+	$XAxisChooser.text = Localization.car_properties[AxisOptions[id]]
 	refresh_chart()
 
 func _on_y_axis_changed(id):
 	y_id = id
-	$YAxisChooser.text = AxisOptions[id]
+	$YAxisChooser.text = Localization.car_properties[AxisOptions[id]]
 	refresh_chart()
 
 func refresh_chart():
@@ -168,7 +168,9 @@ func select_none():
 	refresh_chart()
 
 func refresh_select():
-	$SelectButton.text = SelectOptions[select_id]
+	$SelectButton.text = Localization.car_properties[SelectOptions[select_id]]
+	$XAxisChooser.text = Localization.car_properties[AxisOptions[x_id]]
+	$YAxisChooser.text = Localization.car_properties[AxisOptions[y_id]]
 	delete_children($ScrollContainer/VBoxContainer)
 	var values = get_unique_values(SelectOptions[select_id])
 	var values_keys = values.keys()
@@ -209,15 +211,15 @@ func _on_selection_changed(id, pressed):
 func add_options():
 	var index = 0
 	for option in AxisOptions:
-		$XAxisChooser.get_popup().add_item(option, index)
-		$YAxisChooser.get_popup().add_item(option, index)
+		$XAxisChooser.get_popup().add_item(Localization.car_properties[option], index)
+		$YAxisChooser.get_popup().add_item(Localization.car_properties[option], index)
 		index += 1
 	$XAxisChooser.get_popup().connect('id_pressed', self, '_on_x_axis_changed')
 	$YAxisChooser.get_popup().connect('id_pressed', self, '_on_y_axis_changed')
 
 	index = 0
 	for option in SelectOptions:
-		$SelectButton.get_popup().add_item(option, index)
+		$SelectButton.get_popup().add_item(Localization.car_properties[option], index)
 		index += 1
 
 func _unhandled_input(event):
